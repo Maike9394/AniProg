@@ -1,0 +1,51 @@
+Projekt Animationsporgrammierung
+
+Minimalanforderung
+
+- MUSS: Lauffähiges Processing Projekt (egal welche Variante)
+	- p5.js, processing, processing.py oder openFrameworks (C++)
+
+- MUSS: erkennbarer Eigenanteil
+	- Ihr könnt den Teil erklären
+
+- dürft Bibliotheken verwenden
+
+- maximal 2 Personen pro Projekt
+	- gemeinsam geprüft, jeweils einzeln
+	
+- MUSS: (mindestens) eine Form von Animation enthalten, z.B.
+	- Keyframeanimation
+	- Sprite Animation
+	- lineare Animation (z.B. Bewegungen oder Farbe, funktionsgesteuert)
+	- nicht-lineare Animation (z.B. Tabellengesteuert)
+	- Pfadanimation
+	- Partikelsysteme
+	- affine Transformationen
+	
+- sollte interaktiv sein
+	- mindestens parameterisiert
+	
+- sollte einen aestetischen Wert haben
+	
+Extras
+
+- Interaktion erfolgt tatsächlich in Echtzeit 
+	- über Tastatur
+	- über Kinect
+	- über Mikrofon
+	- über Netzwerk
+	- über Leap Motion
+	- über MaKey MaKey
+	
+- sollte über mehrere Modalitäten verfügen
+	- Multimediaprojekt 
+	
+- Code sollte gut strukturiert und gut kommentiert sein	
+	- in der Regel modularisiert (z.B. Klassen)
+	- Algorithmen
+	- Datenstrukturen
+	
+- Konzeption
+	- Analyse und Design 
+
+- zur Präsentation bitte einen Screencast erstellen (z.B. ScreenCast-O-Matic, vokoscreen)
