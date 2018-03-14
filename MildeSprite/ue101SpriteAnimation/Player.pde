@@ -31,7 +31,11 @@
      yPosition = this.yPosition;
      speedY = this.speedY;
    }
+}
+ 
+/*Ende Wurm KLASSE*/
 
+/*Bewegung*/
 void movePlayer(float dx, float dy) {
   dx *= tileSize;
   dy *= tileSize;  
@@ -42,26 +46,25 @@ void movePlayer(float dx, float dy) {
     py = newY;
   }
   }
-
+  
+/*passende Bewegung zu bestimmter Taste*/
 void keyPressed() {
     switch (key){
       case 'w': 
-        movePlayer(0, -0.5);
+        movePlayer(0,-1);
         break;
       case 'a':
-        movePlayer(-0.5, 0);
+        movePlayer(-1, 0);
         walkPlayerLeft();
         break;
       case 's':
-        movePlayer(0, 0.5);  break; 
+        movePlayer(0, 1);  break; 
       case 'd': 
-        movePlayer(0.5, 0); 
+        movePlayer(1, 0); 
         walkPlayerRight();
         break;
       }
     }
-}
-
 
 //verschiedene Lauffunktionen
   //idle 126
