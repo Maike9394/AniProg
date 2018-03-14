@@ -13,7 +13,10 @@
   PImage getHitPlayer;
   PImage walkPlayerRight;
   PImage walkPlayerLeft;
-  float px = 480, py = 450;
+
+  float px =500,py = 0;
+  float speed = 0;
+  float gravity = 0.5;
   
   int hoehe = 0;
   int phase = 0;
@@ -34,8 +37,22 @@
 }
  
 /*Ende Wurm KLASSE*/
+    
+void addGravity(){
+  int height2 = height -150;
+  //add speed to location
+  speed = speed + gravity;
+  //add gravity to speed
+  py = py + speed;
+  if (py>height2) {
+    //Verlangsamt das immer wieder abspringen, bounced 2 mal
+    speed = speed * -0.35;
+    py = height2;
+  }
+}
 
 /*Bewegung*/
+
 void movePlayer(float dx, float dy) {
   dx *= tileSize;
   dy *= tileSize;  
@@ -47,24 +64,33 @@ void movePlayer(float dx, float dy) {
   }
   }
   
-/*passende Bewegung zu bestimmter Taste*/
+void jump(){
+
+
+}  
+  
+//passende Bewegung zu bestimmter Taste
 void keyPressed() {
     switch (key){
       case 'w': 
-        movePlayer(0,-1);
+        movePlayer(0,-4);
         break;
       case 'a':
-        movePlayer(-1, 0);
+        movePlayer(-4, 0);
         walkPlayerLeft();
         break;
       case 's':
-        movePlayer(0, 1);  break; 
+        movePlayer(0, 4);  break; 
       case 'd': 
-        movePlayer(1, 0); 
+        movePlayer(4, 0); 
         walkPlayerRight();
         break;
       }
     }
+    
+    
+    
+
 
 //verschiedene Lauffunktionen
   //idle 126
