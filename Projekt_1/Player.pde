@@ -50,16 +50,6 @@ void keyPressed() {
 }
    
 
-void idlePlayer(){
-  idleWorm = loadImage("player.png");
-  for (int n = 0; n < 7 ; n++) {
-     phasen[n] = createGraphics(sz,sz);
-     phasen[n].beginDraw();
-     phasen[n].copy(ss, n*sz,0*sz,sz,sz,0,0, sz,sz);
-     phasen[n].endDraw();
-  }
-
-}
 
 //Grenzen setzen, damit FIgur nur innerhalb von Rahmen ist
  /* void setBorders () { // methode welche dafür sorgt, dass sich die figur nur bis zum rand des bildschirms bewegen kann, nicht abgeschnitten wird und nur bis zum boden fällt

@@ -10,7 +10,7 @@ int px = 320, py = 240;
 Player player;
 
 void setup() {
-  size(840, 680); //VGA for those old enough to remember
+  size(840, 680); 
   
   
   //initialisieren klassen

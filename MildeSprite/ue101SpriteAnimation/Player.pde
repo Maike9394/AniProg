@@ -4,15 +4,16 @@
  */
  
  /*VARIABLEN*/
-  int tileSize = 20;
-  PImage idlePlayer;
+  int tileSize = 5;
+  PImage idlePlayerL;
+  PImage idlePlayerR;
   PImage attack1Player;
   PImage attack2Player;
   PImage defeatedPlayer;
   PImage getHitPlayer;
   PImage walkPlayerRight;
   PImage walkPlayerLeft;
-  float px = 320, py = 240;
+  float px = 480, py = 450;
   
   int hoehe = 0;
   int phase = 0;
@@ -36,22 +37,25 @@ void movePlayer(float dx, float dy) {
   dy *= tileSize;  
   float newX = px + dx;
   float newY = py + dy;
-  if(newX >= 0
-    && newX < width
-    && newY >= 0
-    && newY < height
-  ) {
+  if(newX >= -24  && newX < width && newY >= -13 && newY < height) {
     px = newX;
     py = newY;
   }
-}
+  }
 
 void keyPressed() {
     switch (key){
-      case 'w': movePlayer(0, -0.5); break;
-      case 'a': movePlayer(-0.5, 0); break;
+      case 'w': 
+        movePlayer(0, -0.5);
+        break;
+      case 'a':
+        walkPlayerLeft();
+        break;
       case 's': movePlayer(0, 0.5);  break; 
-      case 'd': movePlayer(0.5, 0);  break;
+      case 'd': 
+        movePlayer(0.5, 0); 
+        walkPlayerRight();
+        break;
       }
     }
 }
@@ -59,13 +63,24 @@ void keyPressed() {
 
 //verschiedene Lauffunktionen
   //idle 126
-  void idlePlayer(){
-  idlePlayer = loadImage("idle.png");
+  void idlePlayerRight(){
+  idlePlayerR = loadImage("idleRight.png");
     hoehe = 126;
     for (int n = 0; n < 7 ; n++) {
        phasen[n] = createGraphics(hoehe,hoehe);
        phasen[n].beginDraw();
-       phasen[n].copy(idlePlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasen[n].copy(idlePlayerR, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasen[n].endDraw();
+    }
+  }
+  
+  void idlePlayerLeft(){
+  idlePlayerL = loadImage("idleLeft.png");
+    hoehe = 126;
+    for (int n = 0; n < 7 ; n++) {
+       phasen[n] = createGraphics(hoehe,hoehe);
+       phasen[n].beginDraw();
+       phasen[n].copy(idlePlayerL, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
        phasen[n].endDraw();
     }
   }
@@ -129,30 +144,6 @@ void keyPressed() {
   } 
  
 /*
-void keyPressed() {
-    switch (key){
-      case 'w': movePlayer(0, -1); break;
-      case 'a': movePlayer(-1, 0); break;
-      case 's': movePlayer(0, 1);  break; 
-      case 'd': movePlayer(1, 0);  break;
-      }
-}*/
-
-/*      
-void movePlayer(int dx, int dy) {
-  dx *= tileSize;
-  dy *= tileSize;  
-  int newX = px + dx;
-  int newY = py + dy;
-  if(newX >= 0
-    && newX < width
-    && newY >= 0
-    && newY < height
-  ) {
-    px = newX;
-    py = newY;
-  }
-}*/
 
 //Grenzen setzen, damit FIgur nur innerhalb von Rahmen ist
  /* void setBorders () { // methode welche dafür sorgt, dass sich die figur nur bis zum rand des bildschirms bewegen kann, nicht abgeschnitten wird und nur bis zum boden fällt
