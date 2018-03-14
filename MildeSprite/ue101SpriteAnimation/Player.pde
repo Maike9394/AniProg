@@ -5,11 +5,17 @@
  
  /*VARIABLEN*/
   int tileSize = 20;
-  PImage idleWorm;
-  int sz = 64;
+  PImage idlePlayer;
+  PImage walkPlayer;
+  PImage attack1Player;
+  PImage attack2Player;
+  PImage defeatedPlayer;
+  PImage getHitPlayer;
+  
+  int hoehe = 0;
   int phase = 0;
-  PGraphics[] phasen = new PGraphics[7];
-  TimeBase timebase;
+  PGraphics[] phasen = new PGraphics[9];
+  
   
  /*WURM KLASSE*/
  public class Player {
@@ -22,7 +28,55 @@
      yPosition = this.yPosition;
      speedY = this.speedY;
    }
-       
+}
+
+
+//verschiedene Lauffunktionen
+  //idle 126
+  void idlePlayer(){
+  idlePlayer = loadImage("idle.png");
+    hoehe = 126;
+    for (int n = 0; n < 7 ; n++) {
+       phasen[n] = createGraphics(hoehe,hoehe);
+       phasen[n].beginDraw();
+       phasen[n].copy(idlePlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasen[n].endDraw();
+    }
+  }
+
+  //walk 115
+  void walkPlayer(){
+  walkPlayer = loadImage("walk.png");
+    hoehe = 115;
+    for (int n = 0; n < 7 ; n++) {
+       phasen[n] = createGraphics(hoehe,hoehe);
+       phasen[n].beginDraw();
+       phasen[n].copy(walkPlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasen[n].endDraw();
+    }
+  }
+  
+  void attack_1_Player(){
+    attack1Player = loadImage("attack.png");
+    hoehe = 121;
+    for (int n = 0; n < 9 ; n++) {
+       phasen[n] = createGraphics(hoehe,hoehe);
+       phasen[n].beginDraw();
+       phasen[n].copy(attack1Player, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasen[n].endDraw();
+    }
+  }
+/*
+void keyPressed() {
+    switch (key){
+      case 'w': movePlayer(0, -1); break;
+      case 'a': movePlayer(-1, 0); break;
+      case 's': movePlayer(0, 1);  break; 
+      case 'd': movePlayer(1, 0);  break;
+      }
+}*/
+
+/*      
 void movePlayer(int dx, int dy) {
   dx *= tileSize;
   dy *= tileSize;  
@@ -36,30 +90,7 @@ void movePlayer(int dx, int dy) {
     px = newX;
     py = newY;
   }
-}
-
-void keyPressed() {
-    switch (key){
-      case 'w': movePlayer(0, -1); break;
-      case 'a': movePlayer(-1, 0); break;
-      case 's': movePlayer(0, 1);  break; 
-      case 'd': movePlayer(1, 0);  break;
-      }
-}
-
-}
-   
-
-void idlePlayer(){
-  idleWorm = loadImage("player.png");
-  for (int n = 0; n < 7 ; n++) {
-     phasen[n] = createGraphics(sz,sz);
-     phasen[n].beginDraw();
-     phasen[n].copy(ss, n*sz,0*sz,sz,sz,0,0, sz,sz);
-     phasen[n].endDraw();
-  }
-
-}
+}*/
 
 //Grenzen setzen, damit FIgur nur innerhalb von Rahmen ist
  /* void setBorders () { // methode welche dafür sorgt, dass sich die figur nur bis zum rand des bildschirms bewegen kann, nicht abgeschnitten wird und nur bis zum boden fällt
