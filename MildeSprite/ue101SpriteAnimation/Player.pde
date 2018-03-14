@@ -49,9 +49,11 @@ void keyPressed() {
         movePlayer(0, -0.5);
         break;
       case 'a':
+        movePlayer(-0.5, 0);
         walkPlayerLeft();
         break;
-      case 's': movePlayer(0, 0.5);  break; 
+      case 's':
+        movePlayer(0, 0.5);  break; 
       case 'd': 
         movePlayer(0.5, 0); 
         walkPlayerRight();
