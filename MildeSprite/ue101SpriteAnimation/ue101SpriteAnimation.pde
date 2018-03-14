@@ -18,12 +18,17 @@ void setup() {
   tb = new TimeBase(100, 7);
   player = new Player(0, height-192, 5);
   //idlePlayer();
-  walkPlayer();
+
   //attack_1_Player();
+  //attack_2_Player();
+  defeatedPlayer();
+  //walkPlayerLeft();
+   //walkPlayerRight();
 }
 
 
 void draw() {
   background(127);
-  image(phasen[tb.getPhase()], mouseX, mouseY);
+  player.keyPressed();
+  image(phasen[tb.getPhase()], px, py);
 }
