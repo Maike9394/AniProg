@@ -12,10 +12,11 @@ TimeBase tb;
 Player player;
 
 void setup() {
-  size(840,680);
+  size(640,480);
   frameRate(60);
   tb = new TimeBase(100, 7);
-  player = new Player(px,py,speed);
+  player = new Player(px,py,speedY);
+  player.velocity = new PVector(0, 0);
   idlePlayerRight(); //startPositionWurm ohne diese klappt draw()image(phasen[....usw nicht
 
 }

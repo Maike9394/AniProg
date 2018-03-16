@@ -13,10 +13,13 @@
   PImage getHitPlayer;
   PImage walkPlayerRight;
   PImage walkPlayerLeft;
+  boolean keys[] = new boolean[4];
 
-  float px =500,py = 0;
-  float speed = 0;
+//Gravity Variablen
+  float px =350,py = 200;
+  float speedY = 0;
   float gravity = 0.5;
+  float ground = 250;
   
   int hoehe = 0;
   int phase = 0;
@@ -28,6 +31,7 @@
    float xPosition;      //x Position 
    float yPosition;      //y Position
    float speedY;      //Geschwindigkeit Y
+   PVector velocity;
   
    Player (float xPosition, float yPosition, float speedY){
      xPosition = this.xPosition;
@@ -39,20 +43,18 @@
 /*Ende Wurm KLASSE*/
     
 void addGravity(){
-  int height2 = height -150;
   //add speed to location
-  speed = speed + gravity;
+  speedY = speedY + gravity;
   //add gravity to speed
-  py = py + speed;
-  if (py>height2) {
+  py = py + speedY;
+   if(py > ground){
     //Verlangsamt das immer wieder abspringen, bounced 2 mal
-    speed = speed * -0.35;
-    py = height2;
+    speedY = speedY * -0.35;
+    py = ground;
   }
 }
 
 /*Bewegung*/
-
 void movePlayer(float dx, float dy) {
   dx *= tileSize;
   dy *= tileSize;  
@@ -62,36 +64,52 @@ void movePlayer(float dx, float dy) {
     px = newX;
     py = newY;
   }
-  }
-  
-void jump(){
-
-
-}  
+}
   
 //passende Bewegung zu bestimmter Taste
 void keyPressed() {
-    switch (key){
-      case 'w': 
-        movePlayer(0,-4);
-        break;
-      case 'a':
-        movePlayer(-4, 0);
+  if (key == 'a')
+    {   keys[0] = true;
         walkPlayerLeft();
-        break;
-      case 's':
-        movePlayer(0, 4);  break; 
-      case 'd': 
+        movePlayer(-4, 0);
+      }
+  /*if (keys[0]==true && keys[2] ==true)
+    {   
+        if(keys[2]==false){
+        movePlayer(-40, -40);
+        walkPlayerLeft();}
+      }*/
+  if (key == 'd'){  
+        keys[1] = true;
         movePlayer(4, 0); 
         walkPlayerRight();
-        break;
-      }
     }
-    
-    
-    
+  if (key == 'w') {
+      keys[2] = true; 
+      movePlayer(0,-40);
+    }
+ /*  //wenn player gerade nach rechts läuft + sprungtaste
+   if (key == 'w' && (keys[1] == true)){
+       movePlayer(50,-20);
+    } */
+}
 
-
+//welche Animation wird gestartet wenn Wurm sich nicht mehr bewegt?
+void keyReleased(){
+  if (key == 'a')
+    {
+       keys[0] = false;
+       idlePlayerLeft();
+    }
+   if(key == 'd'){
+       keys[1] = false;
+       idlePlayerRight();
+   }
+ if(key == 'w'){
+        keys[2] = false; 
+ }
+}
+    
 //verschiedene Lauffunktionen
   //idle 126
   void idlePlayerRight(){
