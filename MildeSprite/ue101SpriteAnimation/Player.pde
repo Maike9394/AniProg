@@ -12,6 +12,7 @@
   PImage getHitPlayer;
   PImage walkPlayerRight;
   PImage walkPlayerLeft;
+  PImage sadPlayer;
   boolean keys[] = new boolean[4];
 
 
@@ -26,6 +27,13 @@
      yPosition = this.yPosition;
      speedY = this.speedY;
    }
+   /*
+   void fillWormArray(){
+     idlePlayerLeft();
+     idlePlayerRight();
+     walkPlayerRight();
+     walkPlayerLeft();
+   }*/
 }
  
 /*Ende Wurm KLASSE*/
@@ -38,7 +46,7 @@ void addGravity(){
    if(py > ground){
     //Verlangsamt das immer wieder abspringen, bounced 2 mal
     speedY = speedY * -0.35;
-    py = ground;
+   py = ground;
   }
 }
 
@@ -70,6 +78,10 @@ void keyPressed() {
       keys[2] = true; 
       movePlayer(0,-40);
     }
+  if (key == 'x' || key == 'X') {
+      keys[3] = true;
+      level +=1;
+  }
 }
 
 //welche Animation wird gestartet wenn Wurm sich nicht mehr bewegt?
@@ -85,6 +97,9 @@ void keyReleased(){
    }
  if(key == 'w'){
         keys[2] = false; 
+ }
+ if(key == 'x' || key == 'X') {
+       keys[3] = false;
  }
 }
     
@@ -166,6 +181,18 @@ void keyReleased(){
        phasenPlayer[n] = createGraphics(hoehe,hoehe);
        phasenPlayer[n].beginDraw();
        phasenPlayer[n].copy(defeatedPlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
+    }
+  } 
+  
+    //defeated 159
+    void sadPlayer(){
+    sadPlayer = loadImage("sad.png");
+    hoehe = 126;
+    for (int n = 0; n < 7 ; n++) {
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(sadPlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
        phasenPlayer[n].endDraw();
     }
   } 
