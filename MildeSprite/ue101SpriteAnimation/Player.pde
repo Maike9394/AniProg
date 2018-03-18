@@ -4,7 +4,6 @@
  */
  
  /*VARIABLEN*/
-  int tileSize = 5;
   PImage idlePlayerL;
   PImage idlePlayerR;
   PImage attack1Player;
@@ -15,23 +14,12 @@
   PImage walkPlayerLeft;
   boolean keys[] = new boolean[4];
 
-//Gravity Variablen
-  float px =350,py = 200;
-  float speedY = 0;
-  float gravity = 0.5;
-  float ground = 250;
-  
-  int hoehe = 0;
-  int phase = 0;
-  PGraphics[] phasen = new PGraphics[9];
-  
-  
+
  /*WURM KLASSE*/
  public class Player {
    float xPosition;      //x Position 
    float yPosition;      //y Position
    float speedY;      //Geschwindigkeit Y
-   PVector velocity;
   
    Player (float xPosition, float yPosition, float speedY){
      xPosition = this.xPosition;
@@ -73,12 +61,6 @@ void keyPressed() {
         walkPlayerLeft();
         movePlayer(-4, 0);
       }
-  /*if (keys[0]==true && keys[2] ==true)
-    {   
-        if(keys[2]==false){
-        movePlayer(-40, -40);
-        walkPlayerLeft();}
-      }*/
   if (key == 'd'){  
         keys[1] = true;
         movePlayer(4, 0); 
@@ -88,10 +70,6 @@ void keyPressed() {
       keys[2] = true; 
       movePlayer(0,-40);
     }
- /*  //wenn player gerade nach rechts läuft + sprungtaste
-   if (key == 'w' && (keys[1] == true)){
-       movePlayer(50,-20);
-    } */
 }
 
 //welche Animation wird gestartet wenn Wurm sich nicht mehr bewegt?
@@ -116,10 +94,10 @@ void keyReleased(){
   idlePlayerR = loadImage("idleRight.png");
     hoehe = 126;
     for (int n = 0; n < 7 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(idlePlayerR, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(idlePlayerR, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
   
@@ -127,10 +105,10 @@ void keyReleased(){
   idlePlayerL = loadImage("idleLeft.png");
     hoehe = 126;
     for (int n = 0; n < 7 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(idlePlayerL, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(idlePlayerL, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
 
@@ -139,10 +117,10 @@ void keyReleased(){
   walkPlayerRight = loadImage("walkRight.png");
     hoehe = 115;
     for (int n = 0; n < 7 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(walkPlayerRight, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(walkPlayerRight, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
   //walkleft 115
@@ -150,10 +128,10 @@ void keyReleased(){
   walkPlayerLeft = loadImage("walkLeft.png");
     hoehe = 115;
     for (int n = 0; n < 7 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(walkPlayerLeft, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(walkPlayerLeft, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
   
@@ -162,10 +140,10 @@ void keyReleased(){
     attack1Player = loadImage("attack.png");
     hoehe = 134;
     for (int n = 0; n < 9 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(attack1Player, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(attack1Player, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
    //attack 2 174
@@ -173,10 +151,10 @@ void keyReleased(){
     attack2Player = loadImage("attack2.png");
     hoehe = 174;
     for (int n = 0; n < 7 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(attack2Player, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(attack2Player, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   }
     
@@ -185,15 +163,14 @@ void keyReleased(){
     defeatedPlayer = loadImage("defeated.png");
     hoehe = 159;
     for (int n = 0; n < 9 ; n++) {
-       phasen[n] = createGraphics(hoehe,hoehe);
-       phasen[n].beginDraw();
-       phasen[n].copy(defeatedPlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
-       phasen[n].endDraw();
+       phasenPlayer[n] = createGraphics(hoehe,hoehe);
+       phasenPlayer[n].beginDraw();
+       phasenPlayer[n].copy(defeatedPlayer, n*hoehe,0*hoehe,hoehe,hoehe,0,0, hoehe,hoehe);
+       phasenPlayer[n].endDraw();
     }
   } 
  
 /*
-
 //Grenzen setzen, damit FIgur nur innerhalb von Rahmen ist
  /* void setBorders () { // methode welche dafür sorgt, dass sich die figur nur bis zum rand des bildschirms bewegen kann, nicht abgeschnitten wird und nur bis zum boden fällt
     if (xPosition < 15) { // links 
