@@ -7,3 +7,8 @@ typewriter effect https://forum.processing.org/two/discussion/26427/how-to-incor
 
 sound
 jump https://freesound.org/people/LloydEvans09/sounds/187024/
+success https://freesound.org/people/maxmakessounds/sounds/353546/ 
+eat https://freesound.org/people/Ondruska/sounds/360685/ 
+intro https://freesound.org/people/vikuserro/sounds/265549/
+game music https://freesound.org/people/joshuaempyre/sounds/251461/
+you win https://freesound.org/people/LittleRobotSoundFactory/sounds/270319/

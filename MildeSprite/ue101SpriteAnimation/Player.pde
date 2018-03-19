@@ -8,7 +8,7 @@
   PImage walkPlayerRight;
   PImage walkPlayerLeft;
   PImage sadPlayer;
-  boolean keys[] = new boolean[4];
+  boolean keys[] = new boolean[5];
   int hoehe;
 
  /*WURM KLASSE*/
@@ -107,6 +107,11 @@ void keyPressed() {
         keys[3] = true;
         level +=1;
     }
+    if (key == 's' || key == 'S') 
+    {
+      keys[4]=true;
+      level = 0;
+    }
   }
 }
 
@@ -130,6 +135,10 @@ void keyReleased(){
    if(key == 'x' || key == 'X') {
          keys[3] = false;
    }
+    if (key == 's' || key == 'S') 
+    {
+      keys[4]=false;
+    }
  }
 }
     
