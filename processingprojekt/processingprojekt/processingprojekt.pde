@@ -50,8 +50,6 @@ feuerball1Level2 f1;
 Messer messer; 
 Granate granate;
 
-
-
 void setup () { 
   size(840, 680);  
   frameRate(18); 

@@ -6,6 +6,8 @@
 PImage levelOne;
 PImage level0;
 boolean intro[] = new boolean[8];
+
+
 //Variablen Deklarationen 
 
 int tileSize = 5;
@@ -13,7 +15,7 @@ int tileSize = 5;
 //Gravity Variablen
 float speedY = 0;
 float gravity = 0.5;
-float ground = 330;
+float ground = 310;
 
 int level;
 PFont title;
@@ -30,9 +32,12 @@ Player player;
 Apple apple;
 
 //random variablen
-float py = 250;
-float px = 800;
+float py = 170;
+float px = 820;
 int text; 
+
+//win loose
+boolean win, loose;
     
     
 void setup() {
@@ -45,27 +50,27 @@ void setup() {
   level = 0;
 
   //apple setup
-  apple = new Apple(200,200,speedY);
   appleX = random(10,400); 
   appleY = 0;
   appleSize = random(40,80);
-  
+  apple1 = loadImage("apple1.png");
+ 
+   
   //take random string from applePictures Array
-  index = int (random(apples.length));
-  fillAppleArray();
+//  index = int (random(apples.length));
+  //fillAppleArray();
     
  
   //wurm setup
   player = new Player(px,py,speedY);
-   idlePlayerLeft();
- // player.fillWormArray();
+  idlePlayerLeft();
+  apple = new Apple(appleX,appleY);
+
+  //score etc
+  int score = 0;
+ 
   
-  for (int i = 0; i < 6; i++)
-  {
-    intro[i] = false;
-  }
-  
-  
+
 }
 
 void draw() {
@@ -77,10 +82,10 @@ void draw() {
   //image(apples[index], 100, 100, 200, 200);
    //image(apples[4], 100, 100, 100, 100);
 
- //PImage apple = (apples[index]);
+ // apple = (apples[index]);
  //image(apple,appleX,appleY, appleSize,appleSize);
  // image(phasenPlayer[tb.getPhase()], px, py, 120,120);
- //startscreen  title = createFont ("font", 28, true);
+
   
 if (level ==0) {
     //musik muss starten
@@ -97,17 +102,28 @@ if (level ==0) {
  else if (level == 1) {
     background (level0);
     image(phasenPlayer[tb.getPhase()], px, py, 180,180);
-    intro[1] = true;
-    writeIntro();
-    intro[2] = true;
+    sadPlayer();
  }
+ 
  else if ( level == 2) {
     background (levelOne);
-    image(phasenPlayer[tb.getPhase()], px, py, 180,180);
- 
+    image(phasenPlayer[tb.getPhase()], px, py, 140,140);
+    player.addGravity();
+    //wenn Äpfel 50 WinScreen
+    //wenn Zeit abgelaufen LooseScreen
+    image(apple1, appleX, appleY, appleSize, appleSize); 
+    apple.fallen();
+    
+ }
+ else if (win == true)
+ {
+   //winscreen
  }
  
- 
+ else if (loose == true)
+ {
+   //loose screen
+ }
 }
 
 //typewriterText() entnommen und angepasst https://forum.processing.org/two/discussion/26427/how-to-incorporate-the-typewriter-effect-into-my-game
@@ -123,6 +139,7 @@ void writeIntro(){
     if (intro[1]){
              String msg = "Hello, I'm Vermi. I am a worm and I live in the forest here all by myself.";
              typewriterText(msg, 410,160);
+             
            }
      if (intro[2] == true){  
             typewriterText("In the morning the first thing I eat is an apple. After that I eat another apple.", 410,180);
@@ -155,4 +172,4 @@ void writeIntro(){
 }
 
 
-     
+        

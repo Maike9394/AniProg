@@ -34,21 +34,22 @@
      walkPlayerRight();
      walkPlayerLeft();
    }*/
-}
- 
-/*Ende Wurm KLASSE*/
-    
+     
 void addGravity(){
   //add speed to location
   speedY = speedY + gravity;
   //add gravity to speed
   py = py + speedY;
    if(py > ground){
-    //Verlangsamt das immer wieder abspringen, bounced 2 mal
-    speedY = speedY * -0.35;
+   //Verlangsamt das immer wieder abspringen, bounced 2 mal
+   speedY = speedY * -0.35;
    py = ground;
   }
 }
+}
+ 
+/*Ende Wurm KLASSE*/
+  
 
 /*Bewegung*/
 void movePlayer(float dx, float dy) {

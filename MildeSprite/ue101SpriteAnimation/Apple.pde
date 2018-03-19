@@ -4,40 +4,33 @@
  */
  /*VARIABLEN*/
   float appleX, appleY, appleSize;
-  PImage apple1, apple2, apple3, apple4, apple6;
-  PGraphics[] apples = new PGraphics[6];
-  int index;
+  float appleSpeed = 0;
+  //PImage apple1, apple2, apple3, apple4, apple6;
+  //PGraphics[] apples = new PGraphics[6];
+  //int index;
+  PImage apple1;
 
  /*Klasse APPLE*/
  public class Apple {
    float xPosition;      //x Position 
    float yPosition;      //y Position
-   float speedY;      //Geschwindigkeit Y
-  
-   Apple (float xPosition, float yPosition, float speedY){
+
+   Apple (float xPosition, float yPosition){
      xPosition = this.xPosition;
      yPosition = this.yPosition;
-     speedY = this.speedY;
-   }
-   
-   void addGravity(){
-      //add speed to location
-      speedY = speedY + gravity;
-      //add gravity to speed
-      py = py + speedY;
-       if(py > ground){
-        //Verlangsamt das immer wieder abspringen, bounced 2 mal
-        speedY = speedY * -0.35;
-        py = ground;
-        }
+     
     }
+      void fallen(){
+      appleSpeed = appleSpeed + gravity;
+      appleY = appleY + speedY;
+   }
 }
  
 /*Ende Klasse APPLE*/
 //Erstellen der verschiedenen Äpfel images
 
 
-void getApple(){
+/*void getApple(){
   image(apples[index], 100, 100,200,200);
 }
 
@@ -74,4 +67,4 @@ void fillAppleArray(){
   apples[4].beginDraw();
   apples[4].copy(apple6,100,0*100,100,100,0,0, 100,100);
   apples[4].endDraw(); 
-}
+}*/
