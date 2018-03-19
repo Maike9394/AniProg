@@ -15,8 +15,8 @@ void setup() {
 }
 
 void draw() {
-  background(255);
-
+  background(220);
+  textSize(60); text(score, 30, 60);
   worm.setLocation(mouseX,mouseY);
   worm.display();
 
@@ -40,6 +40,7 @@ void draw() {
     apples[i].display();
     if(worm.intersect(apples[i])) {
     apples[i].caught();
+    score += 1;
     }
   }
 }

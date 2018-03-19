@@ -1,8 +1,3 @@
-/**
- * @author Maike Lippold
- * @version 1.0
- */
- 
  /*VARIABLEN*/
   PImage idlePlayerL;
   PImage idlePlayerR;
@@ -14,7 +9,7 @@
   PImage walkPlayerLeft;
   PImage sadPlayer;
   boolean keys[] = new boolean[4];
-
+  int hoehe;
 
  /*WURM KLASSE*/
  public class Player {
@@ -22,42 +17,68 @@
    float yPosition;      //y Position
    float speedY;      //Geschwindigkeit Y
   
-   Player (float xPosition, float yPosition, float speedY){
+   Player(float xPosition, float yPosition, float speedY){
      xPosition = this.xPosition;
      yPosition = this.yPosition;
      speedY = this.speedY;
-   }
-   /*
-   void fillWormArray(){
-     idlePlayerLeft();
-     idlePlayerRight();
-     walkPlayerRight();
-     walkPlayerLeft();
-   }*/
-     
-void addGravity(){
-  //add speed to location
-  speedY = speedY + gravity;
-  //add gravity to speed
-  py = py + speedY;
-   if(py > ground){
-   //Verlangsamt das immer wieder abspringen, bounced 2 mal
-   speedY = speedY * -0.35;
-   py = ground;
+    }
+    
+    void setLocation(float tempX, float tempY) {
+        xPosition = tempX;
+        yPosition = tempY;
+    }
+    
+    float getCurrentLocationX()
+    {
+      return xPosition;
+    }
+        
+    float getCurrentLocationY()
+    {
+      return yPosition;
+    }
+       
+       
+    void display(float hoehe) {
+    image(phasenPlayer[tb.getPhase()], px, py, hoehe,hoehe);
   }
-}
-}
- 
+  
+    // A function that returns true or false based on
+    // if the catcher intersects a raindrop
+    boolean intersect(Apples d) {
+      // Calculate distance
+      float distance = dist(xPosition, yPosition, d.appleX, d.appleY); 
+      // Compare distance to sum of radii
+      if  (distance  <= (4 + d.appleSize)){ 
+        return true;
+      } else {
+        return false;
+      }
+    }
+  
+    void addGravity(){
+      //add speed to location
+      speedY = speedY + gravity;
+      //add gravity to speed
+      py = py + speedY;
+       if(py > ground){
+       //Verlangsamt das immer wieder abspringen, bounced 2 mal
+       speedY = speedY * -0.35;
+       py = ground;
+    }
+  }  
+} 
+
 /*Ende Wurm KLASSE*/
   
 
-/*Bewegung*/
+/*Bewegungen*/
 void movePlayer(float dx, float dy) {
   dx *= tileSize;
   dy *= tileSize;  
   float newX = px + dx;
   float newY = py + dy;
-  if(newX >= -24  && newX < width && newY >= -13 && newY < height) {
+  if(newX >= -24  && newX < width && newY >= 0 && newY < height) {
     px = newX;
     py = newY;
   }
@@ -65,46 +86,55 @@ void movePlayer(float dx, float dy) {
   
 //passende Bewegung zu bestimmter Taste
 void keyPressed() {
-  if (key == 'a')
-    {   keys[0] = true;
-        walkPlayerLeft();
-        movePlayer(-4, 0);
+  if (level == 2) {
+    if (key == 'a')
+      {   keys[0] = true;
+          walkPlayerLeft();
+          movePlayer(-5, 0);
+        }
+    if (key == 'd'){  
+          keys[1] = true;
+          movePlayer(5, 0); 
+          walkPlayerRight();
       }
-  if (key == 'd'){  
-        keys[1] = true;
-        movePlayer(4, 0); 
-        walkPlayerRight();
+    if (key == 'w') {
+        keys[2] = true; 
+        movePlayer(0,-40);
+      }
+}
+  else {
+    if (key == 'x' || key == 'X') {
+        keys[3] = true;
+        level +=1;
     }
-  if (key == 'w') {
-      keys[2] = true; 
-      movePlayer(0,-40);
-    }
-  if (key == 'x' || key == 'X') {
-      keys[3] = true;
-      level +=1;
   }
 }
 
 //welche Animation wird gestartet wenn Wurm sich nicht mehr bewegt?
 void keyReleased(){
-  if (key == 'a')
-    {
-       keys[0] = false;
-       idlePlayerLeft();
-    }
-   if(key == 'd'){
-       keys[1] = false;
-       idlePlayerRight();
+  if (level == 2) {
+    if (key == 'a')
+      {
+         keys[0] = false;
+         idlePlayerLeft();
+      }
+     if(key == 'd'){
+         keys[1] = false;
+         idlePlayerRight();
+     }
+   if(key == 'w'){
+          keys[2] = false; 
+}  }
+
+ else {
+   if(key == 'x' || key == 'X') {
+         keys[3] = false;
    }
- if(key == 'w'){
-        keys[2] = false; 
- }
- if(key == 'x' || key == 'X') {
-       keys[3] = false;
  }
 }
     
-//verschiedene Lauffunktionen
+
+/*Animationen*/
   //idle 126
   void idlePlayerRight(){
   idlePlayerR = loadImage("idleRight.png");

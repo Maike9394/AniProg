@@ -5,31 +5,32 @@
 //Level
 PImage levelOne;
 PImage level0;
+PImage introScreen, endScreen;
 boolean intro[] = new boolean[8];
-
-
-//Variablen Deklarationen 
-
+int level;
+PFont title;
+int substr_cnt;
+int score; 
+ 
 int tileSize = 5;
 
 //Gravity Variablen
 float speedY = 0;
 float gravity = 0.5;
-float ground = 310;
+float ground = 340;
 
-int level;
-PFont title;
-int substr_cnt;
- 
 //Animation Vaiablen
 PGraphics[] phasenPlayer = new PGraphics[9];
-int hoehe = 0;
+
 int phase = 0;
 
 //klassenvariablen
 TimeBase tb;
 Player player;
-Apple apple;
+Timer timer;
+Apples [] apples;
+
+int totalApples = 0;
 
 //random variablen
 float py = 170;
@@ -47,45 +48,28 @@ void setup() {
   tb = new TimeBase(100, 7);
   levelOne = loadImage("level1.png");
   level0 = loadImage("level0.png");
-  level = 0;
-
+  introScreen = loadImage("introScreen.png");
+  endScreen = loadImage("endScreen.png");
+  level = 3;
+  
+  PFont myFont;
+  myFont = loadFonr
+  
+  score = 0;
   //apple setup
-  appleX = random(10,400); 
-  appleY = 0;
-  appleSize = random(40,80);
-  apple1 = loadImage("apple1.png");
- 
-   
-  //take random string from applePictures Array
-//  index = int (random(apples.length));
-  //fillAppleArray();
-    
+  apples = new Apples[100];
+  timer = new Timer(1600);    // Create a timer that goes off every 1600 milliseconds
+  timer.start();             // Starting the timer
  
   //wurm setup
   player = new Player(px,py,speedY);
   idlePlayerLeft();
-  apple = new Apple(appleX,appleY);
-
-  //score etc
-  int score = 0;
- 
-  
-
 }
 
 void draw() {
    //background(levelOne);
-   background(112);
+   background (introScreen);
    image(phasenPlayer[tb.getPhase()], px, py, 180,180);
- 
-  //image(apples[index], appleX, appleY, appleSize,appleSize);
-  //image(apples[index], 100, 100, 200, 200);
-   //image(apples[4], 100, 100, 100, 100);
-
- // apple = (apples[index]);
- //image(apple,appleX,appleY, appleSize,appleSize);
- // image(phasenPlayer[tb.getPhase()], px, py, 120,120);
-
   
 if (level ==0) {
     //musik muss starten
@@ -96,34 +80,65 @@ if (level ==0) {
     text ("Vermi", 350, 300);   //vermiculus Wurm auf lateinisxch
     textSize(30);
     fill (000);
-    text("press x to start", 350, 325);
-   
+    text("press x to start", 350, 325);   
  }
  else if (level == 1) {
     background (level0);
-    image(phasenPlayer[tb.getPhase()], px, py, 180,180);
+    image(phasenPlayer[tb.getPhase()], 170, 820, 180,180);
     sadPlayer();
  }
  
  else if ( level == 2) {
     background (levelOne);
-    image(phasenPlayer[tb.getPhase()], px, py, 140,140);
+    textSize(60); text(score, 30, 60);
+   // image(phasenPlayer[tb.getPhase()], px, py, 110,110);
+    player.setLocation(px,py);
+    player.display(110);
     player.addGravity();
-    //wenn Äpfel 50 WinScreen
-    //wenn Zeit abgelaufen LooseScreen
-    image(apple1, appleX, appleY, appleSize, appleSize); 
-    apple.fallen();
     
+    // Check the timer
+    if (timer.timerFinished()) {
+      // Deal with apples
+      // Initialize one apple
+      apples[totalApples] = new Apples();
+      // Increment totalDrops
+      totalApples++;
+      // If we hit the end of the array
+      if (totalApples >= apples.length) {
+        totalApples = 0; // Start over
+      }
+      timer.start();
+    }  
+    // Move and display all apples
+    for (int i = 0; i < totalApples; i++ ) {
+        if(score ==2)  {      //LEVELWECHSEL
+        level = 3;
+        }
+        apples[i].fall();
+        apples[i].display();
+        if(player.intersect(apples[i])) {
+        apples[i].caught();
+        countScore();
+        }
+      }
+      
+  
  }
- else if (win == true)
+ else if (level == 3)
  {
-   //winscreen
+    background (endScreen);
+    typewriterText("Oh, look at all those apples. Yummy!", 420,180);
+    typewriterText("You won! Thanks for helping me.", 420,220);    
+    idlePlayerLeft();
+    image(phasenPlayer[tb.getPhase()], 790, 198, 200,200);
  }
- 
- else if (loose == true)
- {
-   //loose screen
- }
+}
+
+void countScore(){
+  if (score == 2){
+    level = 3;
+  }
+score +=1;
 }
 
 //typewriterText() entnommen und angepasst https://forum.processing.org/two/discussion/26427/how-to-incorporate-the-typewriter-effect-into-my-game
