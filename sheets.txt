@@ -3,3 +3,7 @@ https://www.openprocessing.org/sketch/92234
 https://www.spriters-resource.com/mobile/pineapplepen/sheet/84232/
 
 typewriter effect https://forum.processing.org/two/discussion/26427/how-to-incorporate-the-typewriter-effect-into-my-game
+
+
+sound
+jump https://freesound.org/people/LloydEvans09/sounds/187024/

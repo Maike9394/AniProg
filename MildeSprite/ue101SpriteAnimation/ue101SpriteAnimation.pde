@@ -53,7 +53,8 @@ void setup() {
   level = 3;
   
   PFont myFont;
-  myFont = loadFonr
+  myFont = loadFont("NuevaStd-Bold-48.vlw");
+  textFont(myFont);
   
   score = 0;
   //apple setup
