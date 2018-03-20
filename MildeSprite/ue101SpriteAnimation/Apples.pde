@@ -1,3 +1,9 @@
+/**
+ * @author Maike Lippold
+ * @version 1.0
+ */
+ 
+
 class Apples {
   float appleX, appleY;   //Variables for location of apple
   float appleSpeed;       // Speed of apple

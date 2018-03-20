@@ -1,3 +1,8 @@
+/**
+ * @author Maike Lippold
+ * @version 1.0
+ */
+ 
  /*VARIABLEN*/
   PImage idlePlayerL;
   PImage idlePlayerR;
@@ -15,7 +20,7 @@
  public class Player {
    float xPosition;      //x Position 
    float yPosition;      //y Position
-   float speedY;      //Geschwindigkeit Y
+   float speedY;       //Geschwindigkeit Y
   
    Player(float xPosition, float yPosition, float speedY){
      xPosition = this.xPosition;
@@ -41,85 +46,88 @@
        
     void display(float hoehe) {
     image(phasenPlayer[tb.getPhase()], px, py, hoehe,hoehe);
-  }
+    }
   
-    // A function that returns true or false based on
-    // if the catcher intersects a raindrop
+    //gibt true zurück, wenn Wurm Apfel berührt
     boolean intersect(Apples d) {
       // Calculate distance
       float distance = dist(xPosition, yPosition, d.appleX, d.appleY); 
-      // Compare distance to sum of radii
-      if  (distance  <= (4 + d.appleSize)){ 
+      // Compare distance to appleSize
+      if  (distance  <= hoehe/5 + d.appleSize/2){ 
         return true;
       } else {
         return false;
       }
     }
-  
+    
     void addGravity(){
-      //add speed to location
-      speedY = speedY + gravity;
-      //add gravity to speed
+      speedY = speedY + gravity; //add gravity to speed
       py = py + speedY;
        if(py > ground){
        //Verlangsamt das immer wieder abspringen, bounced 2 mal
        speedY = speedY * -0.35;
        py = ground;
-    }
-  }  
+      }
+     
+    }  
 } 
 
 /*Ende Wurm KLASSE*/
   
-
-/*Bewegungen*/
+//Bewegungen
 void movePlayer(float dx, float dy) {
   dx *= tileSize;
   dy *= tileSize;  
   float newX = px + dx;
   float newY = py + dy;
-  if(newX >= -24  && newX < width && newY >= 0 && newY < height) {
-    px = newX;
-    py = newY;
+    if(newX >= -50  && newX < width -56 && newY >= 0 && newY < height) {
+      px = newX;
+      py = newY;
   }
 }
   
 //passende Bewegung zu bestimmter Taste
 void keyPressed() {
+  //Steuerung
   if (level == 2) {
-    if (key == 'a')
-      {   keys[0] = true;
-          walkPlayerLeft();
-          movePlayer(-5, 0);
+      if (key == 'a')
+        {   keys[0] = true;
+            walkPlayerLeft();
+            movePlayer(-5, 0);
+          }
+      if (key == 'd'){  
+            keys[1] = true;
+            movePlayer(5, 0); 
+            walkPlayerRight();
         }
-    if (key == 'd'){  
-          keys[1] = true;
-          movePlayer(5, 0); 
-          walkPlayerRight();
-      }
-    if (key == 'w') {
-        keys[2] = true; 
-        movePlayer(0,-40);
-      }
-}
-  else {
-    if (key == 'x' || key == 'X') {
-        keys[3] = true;
-        level +=1;
-    }
-    if (key == 's' || key == 'S') 
-    {
-      keys[4]=true;
-      level = 0;
-    }
+      if (key == 'w') {
+          keys[2] = true;    
+          jump.amp(0.5);
+          jump.play();
+          movePlayer(0,-40);
+        }
+  }
+  //Ein Screen vorspringen
+  else if (level == 0 || level == 1) {
+         if (key == 'x' || key == 'X') {
+            keys[3] = true;
+            level +=1;
+      }  
+  }
+  //Spiel erneut starten
+  else if(level == 4) {
+          if (key == 's' || key == 'S') {
+             keys[4]=true;
+             level = 0;
+           }
   }
 }
 
 //welche Animation wird gestartet wenn Wurm sich nicht mehr bewegt?
 void keyReleased(){
+  //Steuerung zurücksetzen
   if (level == 2) {
-    if (key == 'a')
-      {
+    if (key == 'a'){
          keys[0] = false;
          idlePlayerLeft();
       }
@@ -127,22 +135,24 @@ void keyReleased(){
          keys[1] = false;
          idlePlayerRight();
      }
-   if(key == 'w'){
-          keys[2] = false; 
-}  }
-
- else {
-   if(key == 'x' || key == 'X') {
-         keys[3] = false;
-   }
-    if (key == 's' || key == 'S') 
-    {
-      keys[4]=false;
-    }
+     if(key == 'w'){
+         keys[2] = false; 
+    }   
+  }
+ //Level vorspringen zurücksetzen
+ else if (level == 0|| level ==1) {
+         if(key == 'x' || key == 'X') {
+             keys[3] = false;
+         }
+ }
+ else if (level == 4){
+         if (key == 's' || key == 'S') {
+            keys[4]=false;
+         }
  }
 }
-    
 
+    
 /*Animationen*/
   //idle 126
   void idlePlayerRight(){
@@ -236,22 +246,3 @@ void keyReleased(){
        phasenPlayer[n].endDraw();
     }
   } 
- 
-/*
-//Grenzen setzen, damit FIgur nur innerhalb von Rahmen ist
- /* void setBorders () { // methode welche dafür sorgt, dass sich die figur nur bis zum rand des bildschirms bewegen kann, nicht abgeschnitten wird und nur bis zum boden fällt
-    if (xPosition < 15) { // links 
-      xPosition = 15;
-    }
-    if ( xPosition> width - 113) { // rechts 
-      xPosition = width - 116;
-    }  
-    if ( yPosition> 1) { // boden
-      yPosition = 1; 
-      fallen =false;
-    }
-    if ( yPosition< -350) { // obere grenze
-      yPosition = -347;
-    }
-  }*/  
-  

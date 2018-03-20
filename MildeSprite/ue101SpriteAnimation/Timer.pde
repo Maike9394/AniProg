@@ -1,3 +1,8 @@
+/**
+ * @author http://learningprocessing.com/examples/chp10/example-10-10-rain-catcher-game
+ * angepasst von Maike Lippold
+ */
+ 
 class Timer {
   int savedTime; //When Timer started
   int totalTime; //How long Timer should last
